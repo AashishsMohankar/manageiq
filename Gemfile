@@ -24,8 +24,14 @@ def c2c_manageiq_plugin(plugin_name, branch_name)
   end
 end
 
-c2c_manageiq_plugin "manageiq-providers-ansible_tower", "dev"
-c2c_manageiq_plugin "manageiq-schema", "dev"
+def c2c_pratik(plugin_name)
+  unless dependencies.detect { |d| d.name == plugin_name }
+    gem plugin_name, :git => "https://github.com/Pratik1Awchat/#{plugin_name}", :branch => "master"
+  end
+end
+
+c2c_manageiq_plugin "manageiq-providers-ansible_tower", "dev-pratik-orange"
+c2c_manageiq_plugin "manageiq-schema", "dev-pratik-orange"
 
 # Unmodified gems
 gem "activerecord-id_regions",        "~>0.2.0"
@@ -90,8 +96,13 @@ gem "american_date"
 #
 ### providers
 
-#gem'manageiq-providers-telefonica' ,:require=>false, :git=>"https://github.com/click2cloud/manageiq-providers-telefonica.git", :branch=>"dev-aniket"
-c2c_manageiq_plugin "manageiq-providers-telefonica", "dev"
+group :orange, :manageiq_default do
+  c2c_pratik "manageiq-providers-orange" # TODO: Sort alphabetically...
+end
+
+group :telefonica, :manageiq_default do
+  c2c_pratik "manageiq-providers-telefonica"
+end
 
 group :openstack, :manageiq_default do
   manageiq_plugin "manageiq-providers-openstack"
@@ -281,4 +292,4 @@ end
 Dir.glob(File.join(__dir__, 'bundler.d/*.rb')).each { |f| eval_gemfile(File.expand_path(f, __dir__)) }
 
 # Added at 2018-08-29 23:12:07 +0530 by root:
-gem "fog-telefonica", "~> 0.1.27", :require => false, :git => "https://github.com/Click2Cloud/fog-telefonica", :branch => "master"
+#gem "fog-telefonica", "~> 0.1.27", :require => false, :git => "https://github.com/Click2Cloud/fog-telefonica", :branch => "master"

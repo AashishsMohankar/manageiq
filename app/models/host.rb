@@ -1386,6 +1386,12 @@ class Host < ApplicationRecord
               task.update_status("Active", "Ok", "Refreshing Telefonica Services") if task
               Benchmark.realtime_block(:refresh_telefonica_services) { refresh_telefonica_services(ssu) }
             end
+            
+            if respond_to?(:refresh_orange_services)
+              _log.info("Refreshing Orange Services for #{log_target}")
+              task.update_status("Active", "Ok", "Refreshing Orange Services") if task
+              Benchmark.realtime_block(:refresh_orange_services) { refresh_orange_services(ssu) }
+            end
 
             save
           end
