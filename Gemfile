@@ -30,8 +30,8 @@ def c2c_pratik(plugin_name)
   end
 end
 
-c2c_manageiq_plugin "manageiq-providers-ansible_tower", "dev-pratik-orange"
-c2c_manageiq_plugin "manageiq-schema", "dev-pratik-orange"
+c2c_manageiq_plugin "manageiq-providers-ansible_tower", "dev"
+c2c_manageiq_plugin "manageiq-schema", "dev"
 
 # Unmodified gems
 gem "activerecord-id_regions",        "~>0.2.0"
@@ -97,7 +97,7 @@ gem "american_date"
 ### providers
 
 group :orange, :manageiq_default do
-  c2c_pratik "manageiq-providers-orange" # TODO: Sort alphabetically...
+  c2c_pratik "manageiq-providers-orange" 
 end
 
 group :telefonica, :manageiq_default do
@@ -211,7 +211,7 @@ group :consumption, :manageiq_default do
 end
 
 group :ui_dependencies do # Added to Bundler.require in config/application.rb
-  c2c_manageiq_plugin "manageiq-ui-classic", "dev"
+  c2c_manageiq_plugin "manageiq-ui-classic", "dev-pratik-orange"
   # Modified gems (forked on Github)
   gem "jquery-rjs",                   "=0.1.1",                       :git => "https://github.com/ManageIQ/jquery-rjs.git", :tag => "v0.1.1-1"
 end
@@ -290,6 +290,3 @@ end
 # Load other additional Gemfiles
 #   Developers can create a file ending in .rb under bundler.d/ to specify additional development dependencies
 Dir.glob(File.join(__dir__, 'bundler.d/*.rb')).each { |f| eval_gemfile(File.expand_path(f, __dir__)) }
-
-# Added at 2018-08-29 23:12:07 +0530 by root:
-#gem "fog-telefonica", "~> 0.1.27", :require => false, :git => "https://github.com/Click2Cloud/fog-telefonica", :branch => "master"
